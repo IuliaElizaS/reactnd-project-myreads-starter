@@ -1,4 +1,5 @@
 import React from 'react'
+import {BrowserRouter, Link, Route} from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Library from './Library'
@@ -17,15 +18,17 @@ class BooksApp extends React.Component {
 
   render() {
     return (
-      <div className="app">
-        <div>
-            <Search />
+      <BrowserRouter>
+        <div className="app">
+          <Route exact path='/search' render={Search}/>
+          < Route exact path='/' render={() => (
             <Library />
             <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+              <Link to='/search'>Add a book</Link>
             </div>
-          </div>
-      </div>
+          )}/>
+        </div>
+      </BrowserRouter>
     )
   }
 }

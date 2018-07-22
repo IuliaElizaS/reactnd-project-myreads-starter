@@ -4,6 +4,18 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 
 class Library extends React.Component {
+  state = {
+      existingBooks: []
+  }
+
+  //gets all the books in the library
+  getLibraryBooks = () => {
+      BooksAPI.getAll().then(books =>{
+       this.setState({existingBooks: books})
+     })
+       console.log(this.state.existingBooks);
+  }
+
   render (){
     return (
       <div className="list-books">
@@ -12,9 +24,9 @@ class Library extends React.Component {
         </div>
         <div className="list-books-content">
           <div>
-            <Shelf bookshelfTitle='Currently Reading'/>
-            <Shelf bookshelfTitle='Want to Read'/>
-            <Shelf bookshelfTitle='Read'/>
+            <Shelf getbooks={this.getLibraryBooks} bookshelfTitle='Currently Reading'/>
+            <Shelf getbooks={this.getLibraryBooks} bookshelfTitle='Want to Read'/>
+            <Shelf getbooks={this.getLibraryBooks} bookshelfTitle='Read'/>
           </div>
         </div>
       </div>

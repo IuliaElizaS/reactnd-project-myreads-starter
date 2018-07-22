@@ -1,10 +1,39 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+/*import escapeRegExp from 'escape-string-regexp'
+import sortBy from 'sort-by'*/
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Library from './Library'
+import Book from './Book'
 
 class Search extends React.Component {
+//sets the state
+  state={
+    query: '',
+    searchedBooks : []
+  }
+
+  //if something is typed in the input field calls BooksApi.search()
+  searchResult = (query) => {
+    //updates query
+    this.setState({query: query});
+    //checks if query exists
+    if(query){
+      //calls BooksAPIs search method
+      BooksAPI.search(query).then(books =>
+        //and updates the searchedBooks state
+        this.setState({searchedBooks: books})
+      )
+      console.log(this.state.searchedBooks)
+    }else{
+      this.setState({
+        query:'',
+        searchedBooks : []
+        });
+    };
+  }
+
   render (){
     return (
       <div className="search-books">
@@ -19,12 +48,24 @@ class Search extends React.Component {
               However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
               you don't find a specific author or title. Every search is limited by search terms.
             */}
-            <input type="text" placeholder="Search by title or author"/>
-
+            <input type="text" placeholder="Search by title or author" value={this.state.query} onChange = {event => this.searchResult(event.target.value)} />
           </div>
         </div>
         <div className="search-books-results">
-          <ol className="books-grid"></ol>
+          <ol className="books-grid">
+              //iterates over searchedBooks array
+              {this.state.searchedBooks.map(newbook => {
+                //sets the state for each book
+                Book.setState({
+                  id: newbook.id,
+                  title: newbook.title,
+                  author: newbook.author,
+                  coverURL: newbook.url
+                });
+                //and renders it
+                <Book key={Book.state.id} myread={Book.state} />
+              })}
+          </ol>
         </div>
       </div>
     )

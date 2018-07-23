@@ -13,12 +13,12 @@ class Shelf extends React.Component {
         <div className="bookshelf-books">
           <ol className="books-grid">
           {//filters the books in the library
-            Library.state.existingBooks.filter(currentBook =>
+            this.props.getbooks.filter(currentBook =>
                 //if the books' shelf state matches the shelf's title itterates over them
-                currentBook.state.shelf === this.props.bookshelfTitle
+                currentBook.shelf === this.props.bookshelfTitle
               ).map(shelfBook => {
                   //...and renders theses books
-                    <Book key={shelfBook.state.id} myread={shelfBook.state} />
+                    <Book key={shelfBook.id} myread={shelfBook} />
               })
             }
           </ol>

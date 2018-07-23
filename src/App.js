@@ -14,7 +14,7 @@ class BooksApp extends React.Component {
           <Route exact path='/search' render={Search}/>
           <Route exact path='/' render={() => (
               <div>
-                <Library />
+                <Library load={this.getLibraryBooks} />
                 <div className="open-search">
                   <Link to='/search'>Add a book</Link>
                 </div>

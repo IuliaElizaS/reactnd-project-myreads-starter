@@ -11,7 +11,14 @@ class Search extends React.Component {
 //sets the state
   state={
     query: '',
-    searchedBooks : []
+    searchedBooks : [],
+    newBook: {
+      id: '',
+      shelf:'',
+      title:'',
+      author:'',
+      coverURL:''
+    }
   }
 
   //if something is typed in the input field calls BooksApi.search()
@@ -53,17 +60,17 @@ class Search extends React.Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-              //iterates over searchedBooks array
-              {this.state.searchedBooks.map(newbook => {
+            {//iterates over searchedBooks array
+              this.state.searchedBooks.map(newbook => {
                 //sets the state for each book
-                Book.setState({
+                this.newBook.setState({
                   id: newbook.id,
                   title: newbook.title,
                   author: newbook.author,
                   coverURL: newbook.url
                 });
-                //and renders it
-                <Book key={Book.state.id} myread={Book.state} />
+                //and renders the books
+                <Book key={this.state.newBook.id} changeBookState={this.state.newBook} />
               })}
           </ol>
         </div>

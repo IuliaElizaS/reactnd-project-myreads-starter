@@ -2,6 +2,7 @@ import React from 'react'
 import ShelfChanger from './ShelfChanger'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
+import Search from './Search'
 
 class Book extends React.Component {
   state = {
@@ -12,12 +13,16 @@ class Book extends React.Component {
       coverURL:''
   }
 
+  changeShelf = (event) => {
+    this.setState({shelf: event.target.value})
+  }
+
   render (){
     return (
       <div className="book">
         <div className="book-top">
           <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: '{this.state.CoverURL}' }}></div>
-          <ShelfChanger />
+          <ShelfChanger bookState={this.state} action={this.changeShelf} />
         </div>
         <div className="book-title">{this.state.title}</div>
         <div className="book-authors">{this.state.author}</div>

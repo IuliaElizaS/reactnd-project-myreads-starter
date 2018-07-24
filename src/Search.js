@@ -24,7 +24,7 @@ class Search extends React.Component {
   //if something is typed in the input field calls BooksApi.search()
   searchResult = (query) => {
     //updates query
-    this.setState({query: query});
+    this.setState({query: query.trim()});
     //checks if query exists
     if(query){
       //calls BooksAPIs search method
@@ -34,9 +34,11 @@ class Search extends React.Component {
       )
       console.log(this.state.searchedBooks)
     }else{
+      //if there is nothing typed in the input field empties query and the searched books result
       this.setState({
         query:'',
-        searchedBooks : []
+        searchedBooks : [],
+        newBook : {}
         });
     };
   }
@@ -69,6 +71,13 @@ class Search extends React.Component {
                   author: newbook.author,
                   coverURL: newbook.url
                 });
+                //if the book has no thumbnail, displays a custom placeholder
+                if (!this.state.newBook.coverURL) {
+                  this.newBook.setState({
+                    //source: https://placeholder.com
+                    coverURL: 'http://via.placeholder.com/128x193/ffe99b/282c4b?text=No+Image'
+                  })
+                }
                 //and renders the books
                 <Book key={this.state.newBook.id} changeBookState={this.state.newBook} />
               })}

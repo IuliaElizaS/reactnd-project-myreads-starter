@@ -58,6 +58,11 @@ class Library extends React.Component {
        console.log(this.state.existingBooks);
      }
 
+    //when the Component Mount to the DOM calls getLibraryBooks()
+    ComponentDidMount(){
+      this.getLibraryBooks
+    }
+
   render (){
     return (
       <div className="list-books">

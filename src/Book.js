@@ -21,8 +21,8 @@ class Book extends React.Component {
     return (
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: '{this.state.CoverURL}' }}></div>
-          <ShelfChanger bookState={this.state} action={this.changeShelf} />
+          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: '{this.state.CoverURL}', backgroundSize: 'contain' }}></div>
+          <ShelfChanger bookState={this.state.shelf} action={this.changeShelf} />
         </div>
         <div className="book-title">{this.state.title}</div>
         <div className="book-authors">{this.state.author}</div>

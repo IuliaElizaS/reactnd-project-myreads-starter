@@ -1,6 +1,6 @@
 import React from 'react'
 import Book from './Book'
-import * as BooksAPI from './BooksAPI'
+//import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Library from './Library'
 
@@ -18,7 +18,9 @@ class Shelf extends React.Component {
                 currentBook.shelf === this.props.bookshelfTitle
               ).map(shelfBook => {
                   //...and renders theses books
+                  return(
                     <Book key={shelfBook.id} myread={shelfBook} />
+                  )
               })
             }
           </ol>

@@ -71,16 +71,19 @@ class Search extends React.Component {
                   author: newbook.author,
                   coverURL: newbook.url
                 });
+                return this.state.newBook;
                 //if the book has no thumbnail, displays a custom placeholder
-                if (!this.state.newBook.coverURL) {
+                if (this.state.newBook.coverURL === '') {
                   this.newBook.setState({
                     //source: https://placeholder.com
                     coverURL: 'http://via.placeholder.com/128x193/ffe99b/282c4b?text=No+Image'
                   })
                 }
                 //and renders the books
+                return(
                 <Book key={this.state.newBook.id} changeBookState={this.state.newBook} />
-              })}
+                )
+            })}
           </ol>
         </div>
       </div>

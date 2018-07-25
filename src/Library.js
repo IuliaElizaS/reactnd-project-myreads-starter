@@ -60,7 +60,7 @@ class Library extends React.Component {
 
     //when the Component Mount to the DOM calls getLibraryBooks()
     ComponentDidMount(){
-      this.getLibraryBooks
+      this.getLibraryBooks();
     }
 
   render (){

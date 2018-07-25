@@ -1,6 +1,6 @@
 import React from 'react'
-import {BrowserRouter, Link, Route} from 'react-router-dom'
-import * as BooksAPI from './BooksAPI'
+import {Link, Route} from 'react-router-dom'
+//import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Library from './Library'
 import Search from './Search'
@@ -9,10 +9,10 @@ class BooksApp extends React.Component {
 
   render() {
     return (
-      <BrowserRouter>
+      //<BrowserRouter>
         <div className="app">
-          <Route exact path='/search' render={Search}/>
-          <Route exact path='/' render={() => (
+          <Route exact path='/search' component={Search}/>
+          <Route exact path='/' component2={() => (
               <div>
                 <Library load={this.getLibraryBooks} />
                 <div className="open-search">
@@ -21,7 +21,7 @@ class BooksApp extends React.Component {
               </div>
             )}/>
         </div>
-      </BrowserRouter>
+      //</BrowserRouter>
     )
   }
 }

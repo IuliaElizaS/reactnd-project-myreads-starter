@@ -9,21 +9,19 @@ class BooksApp extends React.Component {
 
   render() {
     return (
-      //<BrowserRouter>
-        <div className="app">
+      <div className="app">
           <Route exact path='/search' component={Search}/>
-          <Route exact path='/' component2={() => (
+          <Route exact path='/' render={() => (
               <div>
-                <Library load={this.getLibraryBooks} />
+                <Library />
                 <div className="open-search">
                   <Link to='/search'>Add a book</Link>
                 </div>
               </div>
             )}/>
         </div>
-      //</BrowserRouter>
     )
   }
 }
 
-export default BooksApp
+export default BooksApp;

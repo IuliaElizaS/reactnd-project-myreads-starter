@@ -4,42 +4,33 @@ import {Link} from 'react-router-dom'
 import sortBy from 'sort-by'*/
 import * as BooksAPI from './BooksAPI'
 import './App.css'
-import Library from './Library'
 import Book from './Book'
 
 class Search extends React.Component {
 //sets the state
   state={
     query: '',
-    searchedBooks : [],
-    newBook: {
-      id: '',
-      shelf:'',
-      title:'',
-      author:'',
-      coverURL:''
-    }
+    searchedBooks : []
   }
 
   //if something is typed in the input field calls BooksApi.search()
   searchResult = (query) => {
     //updates query
-    this.setState({query: query.trim()});
+    this.setState({query: query});
     //checks if query exists
     if(query){
       //calls BooksAPIs search method
       BooksAPI.search(query).then(books =>
         //and updates the searchedBooks state
         this.setState({searchedBooks: books})
-      )
-      console.log(this.state.searchedBooks)
+      );
+      console.log(this.state.searchedBooks);
     }else{
       //if there is nothing typed in the input field empties query and the searched books result
       this.setState({
         query:'',
-        searchedBooks : [],
-        newBook : {}
-        });
+        searchedBooks : []
+      });
     };
   }
 
@@ -47,7 +38,7 @@ class Search extends React.Component {
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <Link to='/'>Close</Link>
+          <Link className="close-search" to='/'>Close</Link>
           <div className="search-books-input-wrapper">
             {/*
               NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -62,28 +53,28 @@ class Search extends React.Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {//iterates over searchedBooks array
-              this.state.searchedBooks.map(newbook => {
-                //sets the state for each book
-                this.newBook.setState({
-                  id: newbook.id,
-                  title: newbook.title,
-                  author: newbook.author,
-                  coverURL: newbook.url
-                });
-                return this.state.newBook;
-                //if the book has no thumbnail, displays a custom placeholder
-                if (this.state.newBook.coverURL === '') {
-                  this.newBook.setState({
-                    //source: https://placeholder.com
-                    coverURL: 'http://via.placeholder.com/128x193/ffe99b/282c4b?text=No+Image'
-                  })
-                }
-                //and renders the books
-                return(
-                <Book key={this.state.newBook.id} changeBookState={this.state.newBook} />
-                )
-            })}
+            {/*checks if searchedBooks contains books */
+              this.state.searchedBooks.length > 0 ? (
+                //If it does, maps over the array and generates the books
+                this.state.searchedBooks.map(newbook => {
+                  /*just for check purposes
+                  console.log(newbook);*/
+                  //if the book has no thumbnail, will recive a custom placeholder
+                  if (! newbook.imageLinks.thumbnail) {
+                      newbook.imageLinks.thumbnail = 'url("http://via.placeholder.com/128x193/ffe99b/282c4b?text=No+Image")'; //source: https://placeholder.com
+                  };
+                  //and renders the books
+                  return (
+                    <li key={newbook.id}>
+                        <Book myread={newbook} />
+                    </li>
+                  )
+                })
+              ) : (
+                //If it doesn't, tells the user that no book could be found
+                  <span> Sorry, There is no book to match your search. Try something else. </span>
+              )
+            }
           </ol>
         </div>
       </div>
@@ -91,4 +82,4 @@ class Search extends React.Component {
   }
 }
 
-export default Search
+export default Search;

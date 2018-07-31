@@ -1,12 +1,13 @@
 import React from 'react'
 import './App.css'
-import Book from './Book'
+
 
 class ShelfChanger extends React.Component{
   render() {
     return(
       <div className="book-shelf-changer">
-        <select value={this.props.bookState} onChange={this.props.action}>
+        {/*On option change, calls the BooksAPI.update method (passed in from the parent component) and passes it the curent book and the selected value as parameters */ }
+        <select value={this.props.bookState.shelf} onChange={(event) => this.props.action (this.props.bookState, event.target.value)}>
           <option value="move" disabled>Move to...</option>
           <option value="currentlyReading">Currently Reading</option>
           <option value="wantToRead">Want to Read</option>
@@ -18,4 +19,4 @@ class ShelfChanger extends React.Component{
   }
 }
 
-export default ShelfChanger
+export default ShelfChanger;

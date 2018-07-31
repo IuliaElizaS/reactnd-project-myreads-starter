@@ -11,6 +11,7 @@ class Library extends React.Component {
   //gets all the books in the library
   getLibraryBooks = () => {
       BooksAPI.getAll().then(books =>{
+        //console.log(books);
        this.setState({existingBooks: books})
      });
        console.log(this.state.existingBooks);
@@ -26,6 +27,7 @@ class Library extends React.Component {
   //when the Component Mounts to the DOM calls getLibraryBooks()
   ComponentDidMount(){
     this.getLibraryBooks();
+    console.log(this.state.existingBooks);
   }
 
   render (){

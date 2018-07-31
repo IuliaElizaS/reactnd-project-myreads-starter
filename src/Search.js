@@ -53,26 +53,23 @@ class Search extends React.Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {/*checks if searchedBooks contains books */
-              this.state.searchedBooks.length > 0 ? (
-                //If it does, maps over the array and generates the books
-                this.state.searchedBooks.map(newbook => {
-                  /*just for check purposes
-                  console.log(newbook);*/
-                  //if the book has no thumbnail, will recive a custom placeholder
-                  if (! newbook.imageLinks.thumbnail) {
-                      newbook.imageLinks.thumbnail = 'url("http://via.placeholder.com/128x193/ffe99b/282c4b?text=No+Image")'; //source: https://placeholder.com
-                  };
-                  //and renders the books
-                  return (
-                    <li key={newbook.id}>
-                        <Book myread={newbook} />
-                    </li>
-                  )
-                })
+            {/*checks if searchedBooks is contains books */
+              (this.state.searchedBooks.length > 0) ?
+                  //If it does, maps over the array and generates the books
+                  (this.state.searchedBooks.map(newbook => {
+                      //if the book has no thumbnail, will recive a custom placeholder
+                      if (! newbook.imageLinks.thumbnail) {
+                        newbook.imageLinks.thumbnail = 'url("http://via.placeholder.com/128x193/ffe99b/282c4b?text=No+Image")'; //source: https://placeholder.com
+                      };
+                      //and renders the book
+                      return (
+                        <li key={newbook.id}>
+                          <Book myread={newbook} />
+                        </li>
+                      )
+                  })
               ) : (
-                //If it doesn't, tells the user that no book could be found
-                  <span> Sorry, There is no book to match your search. Try something else. </span>
+                 <span> Sorry, There is no book to display. </span>
               )
             }
           </ol>

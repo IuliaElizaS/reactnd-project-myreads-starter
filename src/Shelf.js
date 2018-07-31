@@ -5,9 +5,10 @@ import './App.css'
 
 class Shelf extends React.Component {
   //saves parent's method changeShelf in a new method, in order to pass it further to it's child component, Book
-  updateShelf = (actualBook, selectedShelf) => {this.props.setShelf (actualBook, selectedShelf)}
+  updateShelf = (actualBook, selectedShelf) => {this.props.setShelf}
 
   render (){
+    console.log(this.props.getbooks);
     return (
       <div className="bookshelf">
         <h2 className="bookshelf-title">{this.props.bookshelfTitle}</h2>
@@ -18,7 +19,7 @@ class Shelf extends React.Component {
                 /* if the books' shelf state matches the shelf's title itterates over them */
                 currentBook.shelf === this.props.bookshelfTitle
               ).map(shelfBook => {
-                  /*...and renders theses books */
+                  /*...and renders the book */
                 return (
                   <li key={shelfBook.id}>
                     { /* the book component recives the book object and updateShelf method*/ }

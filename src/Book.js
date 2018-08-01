@@ -11,7 +11,7 @@ class Book extends React.Component {
     return (
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url("{this.props.myread.imageLinks.thumbnail}")', backgroundSize: 'contain' }}></div>
+          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.props.myread.imageLinks.thumbnail})`, backgroundSize: 'cover' }}></div>
           { /* ShelfChanger component recives the book object and shelfUpdater method from it's parent */ }
           <ShelfChanger bookState={this.props.myread} action={this.shelfUpdater} />
         </div>

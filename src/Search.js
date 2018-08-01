@@ -53,13 +53,13 @@ class Search extends React.Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {/*checks if searchedBooks is contains books */
+            {/*checks if searchedBooks contains books */
               (this.state.searchedBooks.length > 0) ?
                   //If it does, maps over the array and generates the books
                   (this.state.searchedBooks.map(newbook => {
                       //if the book has no thumbnail, will recive a custom placeholder
                       if (! newbook.imageLinks.thumbnail) {
-                        newbook.imageLinks.thumbnail = 'url("http://via.placeholder.com/128x193/ffe99b/282c4b?text=No+Image")'; //source: https://placeholder.com
+                        newbook.imageLinks.thumbnail = 'http://via.placeholder.com/128x193/ffe99b/282c4b?text=No+Image'; //source: https://placeholder.com
                       };
                       //and renders the book
                       return (

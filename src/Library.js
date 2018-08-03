@@ -4,29 +4,18 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 
 class Library extends React.Component {
-  state = {
-      existingBooks: []
-  }
 
-  //gets all the books in the library
-  getLibraryBooks = () => {
-      BooksAPI.getAll().then(books =>{
-        //console.log(books);
-       this.setState({existingBooks: books});
-     });
-       console.log(this.state.existingBooks);
-  }
 
   //changes the shelf by calling the BooksAPI.update method
   changeShelf = (actualBook, selectedShelf) => {
       BooksAPI.update (actualBook, selectedShelf);
       //and updates the library by fetching the books in the library
-      this.getLibraryBooks();
+      this.props.getBooks();
   }
 
   //when the Component Mounts to the DOM calls getLibraryBooks()
-  ComponentDidMount(){
-    this.getLibraryBooks();
+  componentDidMount(){
+    this.props.getBooks();
   }
 
   render (){
@@ -38,9 +27,9 @@ class Library extends React.Component {
         <div className="list-books-content">
           {/*the Shelf component recives the existingBooks state and also the changeShelf method through props*/}
             <div>
-              <Shelf getbooks={this.state.existingBooks} setShelf = {this.changeShelf} bookshelfTitle='Currently Reading'/>
-              <Shelf getbooks={this.state.existingBooks} setShelf = {this.changeShelf} bookshelfTitle='Want to Read'/>
-              <Shelf getbooks={this.state.existingBooks} setShelf = {this.changeShelf} bookshelfTitle='Read'/>
+              <Shelf getbooks={this.props.libraryBooks} setShelf = {this.changeShelf} bookshelfTitle='Currently Reading' shelf='currentlyReading'/>
+              <Shelf getbooks={this.props.libraryBooks} setShelf = {this.changeShelf} bookshelfTitle='Want to Read' shelf='wantToRead'/>
+              <Shelf getbooks={this.props.libraryBooks} setShelf = {this.changeShelf} bookshelfTitle='Read' shelf='read'/>
             </div>
         </div>
       </div>

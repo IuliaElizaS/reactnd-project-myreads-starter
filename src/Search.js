@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-/*import escapeRegExp from 'escape-string-regexp'
-import sortBy from 'sort-by'*/
+import escapeRegExp from 'escape-string-regexp'
+import sortBy from 'sort-by'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Book from './Book'
@@ -54,13 +54,25 @@ class Search extends React.Component {
         <div className="search-books-results">
           <ol className="books-grid">
             {/*checks if searchedBooks contains books */
-              (this.state.searchedBooks.length > 0) ?
-                  //If it does, maps over the array and generates the books
+              (/*(typeof this.state.searchedBooks === 'object' )  &&*/  this.state.searchedBooks.length > 0) ?
+                  //method to check the array type from https://webbjocke.com/javascript-check-data-types/
+                  //If it does, maps over the array
                   (this.state.searchedBooks.map(newbook => {
                       //if the book has no thumbnail, will recive a custom placeholder
-                      if (! newbook.imageLinks.thumbnail) {
+                      if (!newbook.imageLinks) {
                         newbook.imageLinks.thumbnail = 'http://via.placeholder.com/128x193/ffe99b/282c4b?text=No+Image'; //source: https://placeholder.com
                       };
+                      //maps over the existing books and checks if the book returned from the search is already on one of the library's shelves
+                      this.props.libraryBooks.map(shelfBook => {
+                        if (newbook.id === shelfBook.id) {
+                          //if true sets the proper shelf for that book
+                          newbook.shelf = shelfBook.shelf;
+                        } else {
+                          // if false sets the shelf property to 'none'
+                          newbook.shelf = 'none';
+                        };
+                        return newbook;
+                      })
                       //and renders the book
                       return (
                         <li key={newbook.id}>
@@ -69,7 +81,7 @@ class Search extends React.Component {
                       )
                   })
               ) : (
-                 <span> Sorry, There is no book to display. </span>
+                 <span> There is no book to display. </span>
               )
             }
           </ol>

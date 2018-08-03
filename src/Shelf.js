@@ -17,7 +17,7 @@ class Shelf extends React.Component {
           { /*filters the books in the library*/
             this.props.getbooks.filter(currentBook =>
                 /* if the books' shelf state matches the shelf's title itterates over them */
-                currentBook.shelf === this.props.bookshelfTitle
+                currentBook.shelf === this.props.shelf
               ).map(shelfBook => {
                   /*...and renders the book */
                 return (

@@ -5,7 +5,6 @@ import './App.css'
 
 class Library extends React.Component {
 
-
   //changes the shelf by calling the BooksAPI.update method
   changeShelf = (actualBook, selectedShelf) => {
       BooksAPI.update (actualBook, selectedShelf);

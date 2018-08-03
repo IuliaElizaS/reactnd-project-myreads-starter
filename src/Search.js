@@ -1,6 +1,5 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
@@ -56,8 +55,10 @@ class Search extends React.Component {
             {/*checks if searchedBooks contains books */
               (/*(typeof this.state.searchedBooks === 'object' )  &&*/  this.state.searchedBooks.length > 0) ?
                   //method to check the array type from https://webbjocke.com/javascript-check-data-types/
-                  //If it does, maps over the array
-                  (this.state.searchedBooks.map(newbook => {
+                  //If it does, sorts the books by title
+                  (this.state.searchedBooks.sort(sortBy('title')),
+                  //maps over the array
+                  this.state.searchedBooks.map(newbook => {
                       //if the book has no thumbnail, will recive a custom placeholder
                       if (!newbook.imageLinks) {
                         newbook.imageLinks.thumbnail = 'http://via.placeholder.com/128x193/ffe99b/282c4b?text=No+Image'; //source: https://placeholder.com

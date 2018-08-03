@@ -77,7 +77,7 @@ class Search extends React.Component {
                       //and renders the book
                       return (
                         <li key={newbook.id}>
-                          <Book myread={newbook} />
+                          <Book myread={newbook} updateShelf={this.props.changeshelf}/>
                         </li>
                       )
                   })

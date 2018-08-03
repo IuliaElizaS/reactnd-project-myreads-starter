@@ -20,17 +20,24 @@ class BooksApp extends React.Component {
        console.log(this.state.existingBooks);
   }
 
+  //changes the shelf by calling the BooksAPI.update method
+  changeShelf = (actualBook, selectedShelf) => {
+      BooksAPI.update (actualBook, selectedShelf);
+      //and updates the library by fetching the books in the library
+      this.getLibraryBooks();
+  }
+
   render() {
     return (
       <div className="app">
           <Route exact path='/search' component={() => (
               <div>
-                <Search libraryBooks={this.state.existingBooks}/>
+                <Search libraryBooks={this.state.existingBooks} changeshelf={this.changeShelf}/>
               </div>
             )}/>
           <Route exact path='/' render={() => (
               <div>
-                <Library libraryBooks={this.state.existingBooks} getBooks={this.getLibraryBooks} />
+                <Library libraryBooks={this.state.existingBooks} getBooks={this.getLibraryBooks} changeshelf={this.changeShelf} />
                 <div className="open-search">
                   <Link to='/search'>Add a book</Link>
                 </div>

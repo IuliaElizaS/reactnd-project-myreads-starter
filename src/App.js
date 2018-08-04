@@ -15,16 +15,19 @@ class BooksApp extends React.Component {
   getLibraryBooks = () => {
       BooksAPI.getAll().then(books =>{
         //console.log(books);
-       this.setState({existingBooks: books});
-     });
-       console.log(this.state.existingBooks);
+        this.setState({existingBooks: books});
+      });
+      this.state.existingBooks.map( book => {
+        //this.checkImage();
+        return book;
+      })
+      console.log(this.state.existingBooks);
   }
 
   //changes the shelf by calling the BooksAPI.update method
   changeShelf = (actualBook, selectedShelf) => {
-      BooksAPI.update (actualBook, selectedShelf);
+      BooksAPI.update (actualBook, selectedShelf).then(this.getLibraryBooks);
       //and updates the library by fetching the books in the library
-      this.getLibraryBooks();
   }
 
   render() {
@@ -32,7 +35,7 @@ class BooksApp extends React.Component {
       <div className="app">
           <Route exact path='/search' component={() => (
               <div>
-                <Search libraryBooks={this.state.existingBooks} changeshelf={this.changeShelf}/>
+                <Search libraryBooks={this.state.existingBooks} changeshelf={this.changeShelf} />
               </div>
             )}/>
           <Route exact path='/' render={() => (

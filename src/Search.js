@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import {DebounceInput} from 'react-debounce-input'
 import sortBy from 'sort-by'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
@@ -47,7 +48,8 @@ class Search extends React.Component {
               However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
               you don't find a specific author or title. Every search is limited by search terms.
             */}
-            <input type="text" placeholder="Search by title or author" value={this.state.query} onChange = {event => this.searchResult(event.target.value)} />
+            {/* Debounce implementation suggested by the project reviewer*/}
+            <DebounceInput minLength={1} debounceTimeout={300} type="text" placeholder="Search by title or author" value={this.state.query} onChange = {event => this.searchResult(event.target.value)} />
           </div>
         </div>
         <div className="search-books-results">
@@ -59,18 +61,11 @@ class Search extends React.Component {
                   (this.state.searchedBooks.sort(sortBy('title')),
                   //maps over the array
                   this.state.searchedBooks.map(newbook => {
-                      //if the book has no thumbnail, will recive a custom placeholder
-                      if (!newbook.imageLinks) {
-                        newbook.imageLinks.thumbnail = 'http://via.placeholder.com/128x193/ffe99b/282c4b?text=No+Image'; //source: https://placeholder.com
-                      };
                       //maps over the existing books and checks if the book returned from the search is already on one of the library's shelves
                       this.props.libraryBooks.map(shelfBook => {
                         if (newbook.id === shelfBook.id) {
                           //if true sets the proper shelf for that book
                           newbook.shelf = shelfBook.shelf;
-                        } else {
-                          // if false sets the shelf property to 'none'
-                          newbook.shelf = 'none';
                         };
                         return newbook;
                       })

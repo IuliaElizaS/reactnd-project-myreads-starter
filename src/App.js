@@ -1,9 +1,11 @@
 import React from 'react'
 import {Link, Route} from 'react-router-dom'
+import { Switch} from 'react-router'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Library from './Library'
 import Search from './Search'
+import NoMatch from './NoMatch'
 
 class BooksApp extends React.Component {
 
@@ -33,6 +35,8 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
+        <Switch>
+        {/* Switch implemetation method from https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/api/Switch.md and suggested by project reviewer */}
           <Route exact path='/search' component={() => (
               <div>
                 <Search libraryBooks={this.state.existingBooks} changeshelf={this.changeShelf} />
@@ -45,8 +49,10 @@ class BooksApp extends React.Component {
                   <Link to='/search'>Add a book</Link>
                 </div>
               </div>
-            )}/>
-        </div>
+            )}/> 
+            <Route component={NoMatch}/>
+        </Switch>
+      </div>
     )
   }
 }
